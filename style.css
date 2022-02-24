@@ -42,7 +42,8 @@
     font-size: 20px;
   }
   .text p{
-      text-align: center;
+      text-align: left;
+      text-indent: 60px;
       font-size: 30px
       ;
   }
