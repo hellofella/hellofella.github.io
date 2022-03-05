@@ -1,3 +1,4 @@
+
 .lable {
     text-align: center;
     color: rgb(80, 54, 21);
@@ -30,12 +31,17 @@
   }
   .title{
     text-align: center;
+    
+  }
+  .title img{
+    width:"80px" ;
+    height:"80px"
   }
   h3{
       font-family: Verdana, Geneva, Tahoma, sans-serif;
-      font-size: 50px;
-      color: rgb(78, 92, 15);
-      margin: 15px;
+      font-size:50px;
+      color:rgb(78,92,15);
+      margin:15px;
   }
   h4{
     font: italic normal bold 40px/20% "Comic Sans MS", cursive, sans-serif;
@@ -43,16 +49,11 @@
   }
   .text p{
       text-align: left;
-      text-indent: 60px;
-      font-size: 30px
-      ;
+      text-indent: 80px;
+      font-size: 30px;
+      padding: 0,50px;
   }
-body{
-    background-color: rgba(124, 114, 73, 0.281);
-    margin:0 0 0 0;
-    padding:0 0 0 0;
 
-}
 .hello p{
     margin: 5px;
 }
@@ -65,3 +66,9 @@ a:hover{
 a:visited{
     color: rgba(160, 175, 18, 0.973);
 }
+
+.navbar{
+        margin: 0%;
+        padding: 0%;
+        border: 0ch;
+        }
