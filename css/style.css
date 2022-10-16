@@ -3,6 +3,9 @@
     text-align: center;
     color: rgb(80, 54, 21);
 }
+.navbar{
+  position: fixed;
+}
 .updating{
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
