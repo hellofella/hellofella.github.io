@@ -1,0 +1,94 @@
+{
+  "photos": [
+    {
+      "id": "sample_1",
+      "title": "山间晨雾",
+      "description": "清晨的阳光穿透薄雾，照亮山谷。远处的山峰若隐若现，如同仙境一般。",
+      "category": "landscape",
+      "tags": ["风景", "山脉", "日出"],
+      "imageUrl": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800",
+      "cameraInfo": {
+        "model": "Canon EOS R5",
+        "lens": "RF 24-70mm f/2.8L",
+        "aperture": "f/8",
+        "shutter": "1/125s",
+        "iso": "100"
+      },
+      "dateTaken": "2024-03-15",
+      "createdAt": "2024-03-15T06:30:00Z",
+      "likes": 42
+    },
+    {
+      "id": "sample_2",
+      "title": "城市夜景",
+      "description": "城市的夜晚，霓虹闪烁。高楼林立间，车水马龙，展现都市的繁华与活力。",
+      "category": "street",
+      "tags": ["城市", "夜景", "街道"],
+      "imageUrl": "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800",
+      "cameraInfo": {
+        "model": "Sony A7IV",
+        "lens": "FE 35mm f/1.4 GM",
+        "aperture": "f/2.8",
+        "shutter": "1/60s",
+        "iso": "800"
+      },
+      "dateTaken": "2024-02-28",
+      "createdAt": "2024-02-28T20:15:00Z",
+      "likes": 38
+    },
+    {
+      "id": "sample_3",
+      "title": "古建筑",
+      "description": "古老建筑的精美细节，记录着岁月的痕迹和匠人的智慧。",
+      "category": "architecture",
+      "tags": ["建筑", "古典", "细节"],
+      "imageUrl": "https://images.unsplash.com/photo-1548013146-72479768b823?w=800",
+      "cameraInfo": {
+        "model": "Nikon Z8",
+        "lens": "NIKKOR Z 14-24mm f/2.8 S",
+        "aperture": "f/11",
+        "shutter": "1/250s",
+        "iso": "100"
+      },
+      "dateTaken": "2024-01-20",
+      "createdAt": "2024-01-20T14:30:00Z",
+      "likes": 56
+    },
+    {
+      "id": "sample_4",
+      "title": "人像摄影",
+      "description": "自然光下的人像，捕捉人物最真实的情感与神态。",
+      "category": "portrait",
+      "tags": ["人像", "自然光", "情感"],
+      "imageUrl": "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800",
+      "cameraInfo": {
+        "model": "Canon EOS R5",
+        "lens": "RF 85mm f/1.2L",
+        "aperture": "f/1.4",
+        "shutter": "1/500s",
+        "iso": "200"
+      },
+      "dateTaken": "2024-03-01",
+      "createdAt": "2024-03-01T16:00:00Z",
+      "likes": 67
+    },
+    {
+      "id": "sample_5",
+      "title": "花朵微距",
+      "description": "微距镜头下的花朵世界，展现肉眼难以察觉的细腻之美。",
+      "category": "macro",
+      "tags": ["微距", "花卉", "自然"],
+      "imageUrl": "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800",
+      "cameraInfo": {
+        "model": "Sony A7R V",
+        "lens": "FE 90mm f/2.8 Macro G OSS",
+        "aperture": "f/8",
+        "shutter": "1/200s",
+        "iso": "400"
+      },
+      "dateTaken": "2024-02-14",
+      "createdAt": "2024-02-14T11:20:00Z",
+      "likes": 45
+    }
+  ]
+}

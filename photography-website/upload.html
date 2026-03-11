@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>上传作品 - 光影之间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#141414',
+                            700: '#1f1f1f',
+                            600: '#2a2a2a'
+                        },
+                        accent: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-accent hover:text-amber-400 transition-colors">
+                    光影之间
+                </a>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="nav-link">作品集</a>
+                    <a href="upload.html" class="nav-link active">上传作品</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 上传表单 -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold mb-4">上传新作品</h1>
+                <p class="text-gray-400">分享您的摄影作品</p>
+            </div>
+
+            <div class="bg-dark-700 rounded-xl p-8 shadow-2xl">
+                <form id="upload-form" class="space-y-6">
+                    <!-- 图片上传区域 -->
+                    <div>
+                        <label class="block text-lg font-semibold mb-3">作品图片 *</label>
+                        <div class="upload-area" id="upload-area">
+                            <input type="file" id="photo-input" accept="image/*" class="hidden">
+                            <div id="upload-placeholder" class="text-center py-12">
+                                <svg class="w-16 h-16 mx-auto text-gray-600 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
+                                </svg>
+                                <p class="text-gray-400 mb-2">点击或拖拽图片到此处上传</p>
+                                <p class="text-gray-600 text-sm">支持 JPG, PNG, WebP 格式</p>
+                            </div>
+                            <div id="preview-container" class="hidden">
+                                <img id="preview-image" src="" alt="预览" class="max-h-96 mx-auto rounded-lg">
+                                <button type="button" id="remove-image" class="mt-4 text-red-400 hover:text-red-300">
+                                    移除图片
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 作品标题 -->
+                    <div>
+                        <label for="title" class="block text-lg font-semibold mb-3">作品标题 *</label>
+                        <input type="text" id="title" name="title" required
+                            class="w-full px-4 py-3 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+                            placeholder="为您的作品起个名字">
+                    </div>
+
+                    <!-- 作品描述 -->
+                    <div>
+                        <label for="description" class="block text-lg font-semibold mb-3">作品描述</label>
+                        <textarea id="description" name="description" rows="4"
+                            class="w-full px-4 py-3 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none"
+                            placeholder="描述这张照片的故事"></textarea>
+                    </div>
+
+                    <!-- 分类 -->
+                    <div>
+                        <label for="category" class="block text-lg font-semibold mb-3">分类 *</label>
+                        <select id="category" name="category" required
+                            class="w-full px-4 py-3 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all">
+                            <option value="">选择分类</option>
+                            <option value="landscape">风景</option>
+                            <option value="portrait">人像</option>
+                            <option value="street">街拍</option>
+                            <option value="architecture">建筑</option>
+                            <option value="macro">微距</option>
+                            <option value="other">其他</option>
+                        </select>
+                    </div>
+
+                    <!-- 标签 -->
+                    <div>
+                        <label for="tags" class="block text-lg font-semibold mb-3">标签</label>
+                        <input type="text" id="tags" name="tags"
+                            class="w-full px-4 py-3 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+                            placeholder="用逗号分隔，如：日落, 山脉, 自然">
+                    </div>
+
+                    <!-- 拍摄参数（可选） -->
+                    <div class="border-t border-gray-700 pt-6">
+                        <h3 class="text-lg font-semibold mb-4 flex items-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            拍摄参数（可选）
+                        </h3>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">相机型号</label>
+                                <input type="text" id="camera-model"
+                                    class="w-full px-4 py-2 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                                    placeholder="如：Canon EOS R5">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">镜头</label>
+                                <input type="text" id="lens"
+                                    class="w-full px-4 py-2 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                                    placeholder="如：RF 24-70mm f/2.8L">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">光圈</label>
+                                <input type="text" id="aperture"
+                                    class="w-full px-4 py-2 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                                    placeholder="如：f/8">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">快门速度</label>
+                                <input type="text" id="shutter"
+                                    class="w-full px-4 py-2 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                                    placeholder="如：1/250s">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">ISO</label>
+                                <input type="text" id="iso"
+                                    class="w-full px-4 py-2 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent"
+                                    placeholder="如：100">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-gray-400 mb-2">拍摄日期</label>
+                                <input type="date" id="date-taken"
+                                    class="w-full px-4 py-2 bg-dark-600 border border-gray-700 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 提交按钮 -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-6">
+                        <button type="submit"
+                            class="flex-1 py-4 bg-accent text-dark-900 font-semibold rounded-lg hover:bg-amber-400 transition-all transform hover:scale-105">
+                            <span id="submit-text">保存作品</span>
+                            <span id="submit-loading" class="hidden">
+                                <svg class="animate-spin h-5 w-5 inline mr-2" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                上传中...
+                            </span>
+                        </button>
+                        <button type="button" id="export-btn"
+                            class="flex-1 py-4 bg-dark-600 text-gray-100 font-semibold rounded-lg hover:bg-dark-500 transition-all">
+                            导出数据
+                        </button>
+                    </div>
+                </form>
+
+                <!-- API 配置说明 -->
+                <div class="mt-8 p-6 bg-dark-600 rounded-lg border-l-4 border-accent">
+                    <h4 class="font-semibold text-accent mb-2">🔌 图片上传接口配置</h4>
+                    <p class="text-gray-400 text-sm mb-3">
+                        当前为本地预览模式，作品数据保存在浏览器中。您可以配置后端 API 实现真实上传：
+                    </p>
+                    <pre class="text-xs bg-dark-800 p-3 rounded overflow-x-auto"><code>// 在 js/api.js 中配置您的 API 端点
+const API_CONFIG = {
+  baseUrl: 'https://your-api.com',
+  uploadEndpoint: '/api/photos/upload',
+  getPhotosEndpoint: '/api/photos'
+};</code></pre>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark-800 border-t border-gray-800 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center text-gray-500">
+            <p>&copy; 2024 光影之间. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/data.js"></script>
+    <script>
+        // 图片上传相关
+        let selectedFile = null;
+
+        const uploadArea = document.getElementById('upload-area');
+        const photoInput = document.getElementById('photo-input');
+        const uploadPlaceholder = document.getElementById('upload-placeholder');
+        const previewContainer = document.getElementById('preview-container');
+        const previewImage = document.getElementById('preview-image');
+        const removeImageBtn = document.getElementById('remove-image');
+
+        // 点击上传区域
+        uploadArea.addEventListener('click', (e) => {
+            if (e.target.id !== 'remove-image') {
+                photoInput.click();
+            }
+        });
+
+        // 拖拽上传
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('drag-over');
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('drag-over');
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('drag-over');
+
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].type.startsWith('image/')) {
+                handleFileSelect(files[0]);
+            }
+        });
+
+        // 文件选择
+        photoInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileSelect(e.target.files[0]);
+            }
+        });
+
+        // 处理文件选择
+        function handleFileSelect(file) {
+            selectedFile = file;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImage.src = e.target.result;
+                uploadPlaceholder.classList.add('hidden');
+                previewContainer.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // 移除图片
+        removeImageBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            selectedFile = null;
+            photoInput.value = '';
+            previewImage.src = '';
+            uploadPlaceholder.classList.remove('hidden');
+            previewContainer.classList.add('hidden');
+        });
+
+        // 表单提交
+        document.getElementById('upload-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            if (!selectedFile) {
+                alert('请选择要上传的图片');
+                return;
+            }
+
+            const formData = {
+                title: document.getElementById('title').value,
+                description: document.getElementById('description').value,
+                category: document.getElementById('category').value,
+                tags: document.getElementById('tags').value.split(',').map(t => t.trim()).filter(t => t),
+                cameraInfo: {
+                    model: document.getElementById('camera-model').value,
+                    lens: document.getElementById('lens').value,
+                    aperture: document.getElementById('aperture').value,
+                    shutter: document.getElementById('shutter').value,
+                    iso: document.getElementById('iso').value
+                },
+                dateTaken: document.getElementById('date-taken').value
+            };
+
+            // 显示加载状态
+            document.getElementById('submit-text').classList.add('hidden');
+            document.getElementById('submit-loading').classList.remove('hidden');
+
+            try {
+                // 将图片转为 base64
+                const imageData = await new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => resolve(e.target.result);
+                    reader.readAsDataURL(selectedFile);
+                });
+
+                // 调用上传接口
+                const result = await PhotoAPI.uploadPhoto({
+                    ...formData,
+                    image: imageData
+                });
+
+                if (result.success) {
+                    alert('作品上传成功！');
+                    window.location.href = 'index.html';
+                } else {
+                    throw new Error(result.message || '上传失败');
+                }
+            } catch (error) {
+                console.error('上传失败:', error);
+                alert('上传失败: ' + error.message);
+
+                // 恢复按钮状态
+                document.getElementById('submit-text').classList.remove('hidden');
+                document.getElementById('submit-loading').classList.add('hidden');
+            }
+        });
+
+        // 导出数据
+        document.getElementById('export-btn').addEventListener('click', () => {
+            const data = PhotoData.exportData();
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'photos-data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>光影之间 - 摄影作品集</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#141414',
+                            700: '#1f1f1f',
+                            600: '#2a2a2a'
+                        },
+                        accent: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-accent hover:text-amber-400 transition-colors">
+                    光影之间
+                </a>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="nav-link active">作品集</a>
+                    <a href="upload.html" class="nav-link">上传作品</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero 区域 -->
+    <header class="relative h-96 flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-dark-700 to-dark-900"></div>
+        <div class="relative z-10 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">
+                光影之间
+            </h1>
+            <p class="text-xl text-gray-400 animate-fade-in-delay">
+                用镜头记录世界的美好瞬间
+            </p>
+        </div>
+    </header>
+
+    <!-- 分类筛选 -->
+    <section class="container mx-auto px-4 py-8">
+        <div class="flex flex-wrap justify-center gap-3" id="category-filters">
+            <button class="filter-btn active" data-category="all">全部作品</button>
+            <button class="filter-btn" data-category="landscape">风景</button>
+            <button class="filter-btn" data-category="portrait">人像</button>
+            <button class="filter-btn" data-category="street">街拍</button>
+            <button class="filter-btn" data-category="architecture">建筑</button>
+            <button class="filter-btn" data-category="macro">微距</button>
+        </div>
+    </section>
+
+    <!-- 瀑布流画廊 -->
+    <main class="container mx-auto px-4 pb-16">
+        <div class="gallery-grid" id="gallery">
+            <!-- 图片将通过 JavaScript 动态加载 -->
+        </div>
+
+        <!-- 加载状态 -->
+        <div id="loading" class="text-center py-12 hidden">
+            <div class="loading-spinner"></div>
+            <p class="text-gray-400 mt-4">加载中...</p>
+        </div>
+
+        <!-- 暂无作品 -->
+        <div id="no-photos" class="text-center py-12 hidden">
+            <p class="text-gray-400 text-lg">暂无作品</p>
+            <a href="upload.html" class="inline-block mt-4 px-6 py-2 bg-accent text-dark-900 rounded-lg hover:bg-amber-400 transition-colors">
+                上传第一张作品
+            </a>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark-800 border-t border-gray-800 py-8">
+        <div class="container mx-auto px-4 text-center text-gray-500">
+            <p>&copy; 2024 光影之间. All rights reserved.</p>
+            <p class="mt-2 text-sm">
+                <a href="https://github.com" target="_blank" class="hover:text-accent transition-colors">
+                    GitHub
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Lightbox 容器 -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script src="https://unpkg.com/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作品详情 - 光影之间</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            900: '#0a0a0a',
+                            800: '#141414',
+                            700: '#1f1f1f',
+                            600: '#2a2a2a'
+                        },
+                        accent: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-dark-900 text-gray-100 min-h-screen">
+    <!-- 导航栏 -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-gray-800">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-2xl font-bold text-accent hover:text-amber-400 transition-colors">
+                    光影之间
+                </a>
+                <div class="flex items-center space-x-6">
+                    <a href="index.html" class="nav-link">作品集</a>
+                    <a href="upload.html" class="nav-link">上传作品</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 作品详情 -->
+    <main class="container mx-auto px-4 pt-24 pb-16">
+        <div class="max-w-6xl mx-auto">
+            <!-- 返回按钮 -->
+            <a href="index.html" class="inline-flex items-center text-gray-400 hover:text-accent transition-colors mb-6">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                返回作品集
+            </a>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 图片区域 -->
+                <div class="relative">
+                    <img id="photo-image" src="" alt="" class="w-full rounded-lg shadow-2xl">
+                </div>
+
+                <!-- 信息区域 -->
+                <div class="space-y-6">
+                    <div>
+                        <h1 id="photo-title" class="text-4xl font-bold mb-4">作品标题</h1>
+                        <p id="photo-description" class="text-gray-400 text-lg leading-relaxed">
+                            作品描述
+                        </p>
+                    </div>
+
+                    <!-- 分类和标签 -->
+                    <div class="flex flex-wrap gap-2">
+                        <span id="photo-category" class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">
+                            分类
+                        </span>
+                        <span id="photo-tags" class="flex gap-2">
+                            <!-- 标签将动态加载 -->
+                        </span>
+                    </div>
+
+                    <!-- 拍摄参数 -->
+                    <div id="camera-info" class="bg-dark-700 rounded-lg p-6 space-y-3">
+                        <h3 class="text-lg font-semibold mb-4">拍摄参数</h3>
+                        <div class="grid grid-cols-2 gap-4 text-sm">
+                            <div>
+                                <span class="text-gray-500">相机</span>
+                                <p id="camera-model" class="text-gray-300">-</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">镜头</span>
+                                <p id="lens" class="text-gray-300">-</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">光圈</span>
+                                <p id="aperture" class="text-gray-300">-</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">快门</span>
+                                <p id="shutter" class="text-gray-300">-</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">ISO</span>
+                                <p id="iso" class="text-gray-300">-</p>
+                            </div>
+                            <div>
+                                <span class="text-gray-500">拍摄时间</span>
+                                <p id="date-taken" class="text-gray-300">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 点赞按钮 -->
+                    <button id="like-btn" class="w-full py-4 bg-dark-700 hover:bg-dark-600 rounded-lg transition-all flex items-center justify-center space-x-2 group">
+                        <svg class="w-6 h-6 text-red-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                        <span id="like-count" class="text-lg">0</span>
+                    </button>
+
+                    <!-- 分享 -->
+                    <div class="flex items-center space-x-4">
+                        <span class="text-gray-500">分享:</span>
+                        <button class="share-btn" title="复制链接">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark-800 border-t border-gray-800 py-8 mt-auto">
+        <div class="container mx-auto px-4 text-center text-gray-500">
+            <p>&copy; 2024 光影之间. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/api.js"></script>
+    <script src="js/data.js"></script>
+    <script>
+        // 获取 URL 参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const photoId = urlParams.get('id');
+
+        // 加载作品详情
+        async function loadPhotoDetail() {
+            if (!photoId) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            try {
+                const photo = await PhotoAPI.getPhotoById(photoId);
+                if (!photo) {
+                    alert('作品不存在');
+                    window.location.href = 'index.html';
+                    return;
+                }
+
+                // 更新页面内容
+                document.getElementById('photo-image').src = photo.imageUrl;
+                document.getElementById('photo-image').alt = photo.title;
+                document.getElementById('photo-title').textContent = photo.title;
+                document.getElementById('photo-description').textContent = photo.description;
+                document.getElementById('photo-category').textContent = getCategoryName(photo.category);
+
+                // 标签
+                const tagsContainer = document.getElementById('photo-tags');
+                tagsContainer.innerHTML = photo.tags.map(tag =>
+                    `<span class="px-3 py-1 bg-dark-600 text-gray-300 rounded-full text-sm">${tag}</span>`
+                ).join('');
+
+                // 拍摄参数
+                if (photo.cameraInfo) {
+                    document.getElementById('camera-model').textContent = photo.cameraInfo.model || '-';
+                    document.getElementById('lens').textContent = photo.cameraInfo.lens || '-';
+                    document.getElementById('aperture').textContent = photo.cameraInfo.aperture || '-';
+                    document.getElementById('shutter').textContent = photo.cameraInfo.shutter || '-';
+                    document.getElementById('iso').textContent = photo.cameraInfo.iso || '-';
+                }
+                document.getElementById('date-taken').textContent = photo.dateTaken || '-';
+
+                // 点赞
+                const likes = PhotoData.getLikes(photoId);
+                document.getElementById('like-count').textContent = likes;
+
+                // 点赞按钮事件
+                document.getElementById('like-btn').addEventListener('click', function() {
+                    const newLikes = PhotoData.toggleLike(photoId);
+                    document.getElementById('like-count').textContent = newLikes;
+
+                    // 动画效果
+                    this.classList.add('liked');
+                    setTimeout(() => this.classList.remove('liked'), 300);
+                });
+
+                // 分享按钮
+                document.querySelector('.share-btn').addEventListener('click', function() {
+                    const url = window.location.href;
+                    navigator.clipboard.writeText(url).then(() => {
+                        alert('链接已复制到剪贴板');
+                    });
+                });
+
+                // 更新页面标题
+                document.title = `${photo.title} - 光影之间`;
+
+            } catch (error) {
+                console.error('加载作品失败:', error);
+                alert('加载作品失败');
+                window.location.href = 'index.html';
+            }
+        }
+
+        // 分类名称映射
+        function getCategoryName(category) {
+            const names = {
+                'landscape': '风景',
+                'portrait': '人像',
+                'street': '街拍',
+                'architecture': '建筑',
+                'macro': '微距',
+                'other': '其他'
+            };
+            return names[category] || category;
+        }
+
+        // 页面加载完成后执行
+        loadPhotoDetail();
+    </script>
+</body>
+</html>
