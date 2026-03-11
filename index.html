@@ -3,108 +3,568 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>光影之间 - 摄影作品集</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/lightbox2@2.11.3/dist/css/lightbox.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        dark: {
-                            900: '#0a0a0a',
-                            800: '#141414',
-                            700: '#1f1f1f',
-                            600: '#2a2a2a'
-                        },
-                        accent: '#f59e0b'
-                    }
-                }
+    <title>馥郁芬芳 - 摄影作品集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sidebar-bg: #faf8f5;
+            --main-bg: #ffffff;
+            --accent-color: #b8860b;
+            --text-primary: #2c2c2c;
+            --text-secondary: #666666;
+            --border-color: #e8e6e3;
+            --hover-bg: #f5f3f0;
+        }
+
+        body {
+            font-family: 'Source Sans 3', 'Noto Serif SC', sans-serif;
+            background: var(--main-bg);
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        /* 左侧导航栏 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .sidebar-header {
+            padding: 60px 30px 40px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .site-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 8px;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .site-subtitle {
+            font-size: 13px;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 30px 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 30px;
+        }
+
+        .nav-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            padding: 0 30px;
+            margin-bottom: 12px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 12px 30px;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: var(--hover-bg);
+        }
+
+        .nav-item.active {
+            background: var(--hover-bg);
+            color: var(--accent-color);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent-color);
+        }
+
+        .nav-item-count {
+            float: right;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .sidebar-footer {
+            padding: 20px 30px;
+            border-top: 1px solid var(--border-color);
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
+        /* 右侧主内容区 */
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+            background: var(--main-bg);
+            padding: 60px 80px;
+        }
+
+        .page-header {
+            margin-bottom: 50px;
+        }
+
+        .page-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 32px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .page-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* 照片展示区 */
+        .photo-gallery {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .photo-item {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .photo-item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 2px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-item img:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .photo-info {
+            margin-top: 20px;
+            padding: 0 20px;
+        }
+
+        .photo-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .photo-description {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .photo-meta {
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .photo-meta span {
+            margin: 0 8px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+
+            .main-content {
+                margin-left: 240px;
+                padding: 40px 50px;
+            }
+
+            .site-title {
+                font-size: 36px;
             }
         }
-    </script>
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+
+            .sidebar-header {
+                padding: 40px 20px 30px;
+            }
+
+            .site-title {
+                font-size: 32px;
+            }
+
+            .sidebar-nav {
+                padding: 20px 0;
+            }
+
+            .nav-item {
+                padding: 10px 20px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 40px 20px;
+            }
+
+            .photo-item {
+                margin-bottom: 40px;
+            }
+        }
+
+        /* 加载动画 */
+        .loading {
+            text-align: center;
+            padding: 60px;
+            color: var(--text-secondary);
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+    </style>
 </head>
-<body class="bg-dark-900 text-gray-100 min-h-screen">
-    <!-- 导航栏 -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-gray-800">
-        <div class="container mx-auto px-4 py-4">
-            <div class="flex items-center justify-between">
-                <a href="index.html" class="text-2xl font-bold text-accent hover:text-amber-400 transition-colors">
-                    光影之间
+<body>
+    <!-- 左侧导航栏 -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1 class="site-title">馥郁芬芳</h1>
+            <p class="site-subtitle">Photography Portfolio</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <div class="nav-section">
+                <div class="nav-section-title">作品分类</div>
+                <a href="#" class="nav-item active" data-category="all">
+                    全部作品
+                    <span class="nav-item-count" id="count-all">8</span>
                 </a>
-                <div class="flex items-center space-x-6">
-                    <a href="index.html" class="nav-link active">作品集</a>
-                    <a href="upload.html" class="nav-link">上传作品</a>
-                </div>
+                <a href="#" class="nav-item" data-category="landscape">
+                    风景
+                    <span class="nav-item-count" id="count-landscape">2</span>
+                </a>
+                <a href="#" class="nav-item" data-category="portrait">
+                    人像
+                    <span class="nav-item-count" id="count-portrait">1</span>
+                </a>
+                <a href="#" class="nav-item" data-category="street">
+                    街拍
+                    <span class="nav-item-count" id="count-street">2</span>
+                </a>
+                <a href="#" class="nav-item" data-category="architecture">
+                    建筑
+                    <span class="nav-item-count" id="count-architecture">2</span>
+                </a>
+                <a href="#" class="nav-item" data-category="macro">
+                    微距
+                    <span class="nav-item-count" id="count-macro">1</span>
+                </a>
             </div>
-        </div>
-    </nav>
 
-    <!-- Hero 区域 -->
-    <header class="relative h-96 flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-dark-700 to-dark-900"></div>
-        <div class="relative z-10 text-center">
-            <h1 class="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">
-                光影之间
-            </h1>
-            <p class="text-xl text-gray-400 animate-fade-in-delay">
-                用镜头记录世界的美好瞬间
-            </p>
-        </div>
-    </header>
+            <div class="nav-section">
+                <div class="nav-section-title">导航</div>
+                <a href="upload.html" class="nav-item">上传作品</a>
+                <a href="#" class="nav-item">关于我</a>
+            </div>
+        </nav>
 
-    <!-- 分类筛选 -->
-    <section class="container mx-auto px-4 py-8">
-        <div class="flex flex-wrap justify-center gap-3" id="category-filters">
-            <button class="filter-btn active" data-category="all">全部作品</button>
-            <button class="filter-btn" data-category="landscape">风景</button>
-            <button class="filter-btn" data-category="portrait">人像</button>
-            <button class="filter-btn" data-category="street">街拍</button>
-            <button class="filter-btn" data-category="architecture">建筑</button>
-            <button class="filter-btn" data-category="macro">微距</button>
+        <div class="sidebar-footer">
+            © 2024 馥郁芬芳
         </div>
-    </section>
+    </aside>
 
-    <!-- 瀑布流画廊 -->
-    <main class="container mx-auto px-4 pb-16">
-        <div class="gallery-grid" id="gallery">
-            <!-- 图片将通过 JavaScript 动态加载 -->
+    <!-- 右侧主内容区 -->
+    <main class="main-content">
+        <div class="page-header">
+            <h2 class="page-title" id="current-category">全部作品</h2>
+            <p class="page-description">用镜头记录生活中的美好瞬间，每一帧都是时光的馈赠</p>
         </div>
 
-        <!-- 加载状态 -->
-        <div id="loading" class="text-center py-12 hidden">
-            <div class="loading-spinner"></div>
-            <p class="text-gray-400 mt-4">加载中...</p>
+        <div class="photo-gallery" id="photo-gallery">
+            <!-- 照片将通过 JavaScript 动态加载 -->
         </div>
 
-        <!-- 暂无作品 -->
-        <div id="no-photos" class="text-center py-12 hidden">
-            <p class="text-gray-400 text-lg">暂无作品</p>
-            <a href="upload.html" class="inline-block mt-4 px-6 py-2 bg-accent text-dark-900 rounded-lg hover:bg-amber-400 transition-colors">
-                上传第一张作品
-            </a>
+        <div class="loading" id="loading">
+            加载中...
+        </div>
+
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <div class="empty-state-icon">📷</div>
+            <p>暂无作品</p>
         </div>
     </main>
 
-    <!-- 页脚 -->
-    <footer class="bg-dark-800 border-t border-gray-800 py-8">
-        <div class="container mx-auto px-4 text-center text-gray-500">
-            <p>&copy; 2024 光影之间. All rights reserved.</p>
-            <p class="mt-2 text-sm">
-                <a href="https://github.com" target="_blank" class="hover:text-accent transition-colors">
-                    GitHub
-                </a>
-            </p>
-        </div>
-    </footer>
+    <script>
+        // 示例照片数据
+        const photos = [
+            {
+                id: 1,
+                title: '山间晨雾',
+                description: '清晨的阳光穿透薄雾，照亮山谷。远处的山峰若隐若现，如同仙境一般。',
+                category: 'landscape',
+                imageUrl: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200',
+                date: '2024-03-15',
+                likes: 42
+            },
+            {
+                id: 2,
+                title: '城市夜景',
+                description: '城市的夜晚，霓虹闪烁。高楼林立间，车水马龙，展现都市的繁华与活力。',
+                category: 'street',
+                imageUrl: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1200',
+                date: '2024-02-28',
+                likes: 38
+            },
+            {
+                id: 3,
+                title: '古建筑',
+                description: '古老建筑的精美细节，记录着岁月的痕迹和匠人的智慧。',
+                category: 'architecture',
+                imageUrl: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=1200',
+                date: '2024-01-20',
+                likes: 56
+            },
+            {
+                id: 4,
+                title: '人像摄影',
+                description: '自然光下的人像，捕捉人物最真实的情感与神态。',
+                category: 'portrait',
+                imageUrl: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=1200',
+                date: '2024-03-01',
+                likes: 67
+            },
+            {
+                id: 5,
+                title: '花朵微距',
+                description: '微距镜头下的花朵世界，展现肉眼难以察觉的细腻之美。',
+                category: 'macro',
+                imageUrl: 'https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=1200',
+                date: '2024-02-14',
+                likes: 45
+            },
+            {
+                id: 6,
+                title: '海边日落',
+                description: '夕阳西下，海天一色。金色的阳光洒在平静的海面上，温暖而宁静。',
+                category: 'landscape',
+                imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200',
+                date: '2024-01-10',
+                likes: 89
+            },
+            {
+                id: 7,
+                title: '街头光影',
+                description: '光影交错的城市街头，行人匆匆，留下斑驳的影子。',
+                category: 'street',
+                imageUrl: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200',
+                date: '2024-02-05',
+                likes: 34
+            },
+            {
+                id: 8,
+                title: '现代建筑',
+                description: '现代建筑的几何美感，简洁有力的线条与光影的对话。',
+                category: 'architecture',
+                imageUrl: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1200',
+                date: '2024-03-10',
+                likes: 52
+            }
+        ];
 
-    <!-- Lightbox 容器 -->
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <script src="https://unpkg.com/lightbox2@2.11.3/dist/js/lightbox.min.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/data.js"></script>
-    <script src="js/app.js"></script>
+        // 当前选中的分类
+        let currentCategory = 'all';
+
+        // 分类名称映射
+        const categoryNames = {
+            'all': '全部作品',
+            'landscape': '风景',
+            'portrait': '人像',
+            'street': '街拍',
+            'architecture': '建筑',
+            'macro': '微距'
+        };
+
+        // 初始化页面
+        function init() {
+            renderPhotos();
+            initNavigation();
+            updateCounts();
+        }
+
+        // 渲染照片
+        function renderPhotos() {
+            const gallery = document.getElementById('photo-gallery');
+            const loading = document.getElementById('loading');
+            const emptyState = document.getElementById('empty-state');
+
+            // 显示加载状态
+            loading.style.display = 'block';
+            gallery.innerHTML = '';
+
+            // 模拟加载延迟
+            setTimeout(() => {
+                // 筛选照片
+                const filteredPhotos = currentCategory === 'all'
+                    ? photos
+                    : photos.filter(photo => photo.category === currentCategory);
+
+                // 隐藏加载状态
+                loading.style.display = 'none';
+
+                if (filteredPhotos.length === 0) {
+                    emptyState.style.display = 'block';
+                    return;
+                }
+
+                emptyState.style.display = 'none';
+
+                // 渲染照片
+                filteredPhotos.forEach((photo, index) => {
+                    const photoItem = createPhotoItem(photo, index);
+                    gallery.appendChild(photoItem);
+                });
+
+                // 更新页面标题
+                document.getElementById('current-category').textContent = categoryNames[currentCategory];
+            }, 300);
+        }
+
+        // 创建照片项
+        function createPhotoItem(photo, index) {
+            const div = document.createElement('div');
+            div.className = 'photo-item';
+            div.style.opacity = '0';
+            div.style.transform = 'translateY(20px)';
+
+            div.innerHTML = `
+                <img src="${photo.imageUrl}" alt="${photo.title}" loading="lazy">
+                <div class="photo-info">
+                    <h3 class="photo-title">${photo.title}</h3>
+                    <p class="photo-description">${photo.description}</p>
+                    <div class="photo-meta">
+                        <span>${photo.date}</span>
+                        <span>·</span>
+                        <span>❤️ ${photo.likes}</span>
+                    </div>
+                </div>
+            `;
+
+            // 添加淡入动画
+            setTimeout(() => {
+                div.style.transition = 'all 0.4s ease';
+                div.style.opacity = '1';
+                div.style.transform = 'translateY(0)';
+            }, index * 100);
+
+            return div;
+        }
+
+        // 初始化导航
+        function initNavigation() {
+            const navItems = document.querySelectorAll('.nav-item[data-category]');
+
+            navItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    // 更新导航状态
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+
+                    // 更新当前分类
+                    currentCategory = item.dataset.category;
+
+                    // 重新渲染照片
+                    renderPhotos();
+
+                    // 移动端滚动到顶部
+                    if (window.innerWidth <= 768) {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+
+        // 更新计数
+        function updateCounts() {
+            document.getElementById('count-all').textContent = photos.length;
+
+            const counts = {};
+            photos.forEach(photo => {
+                counts[photo.category] = (counts[photo.category] || 0) + 1;
+            });
+
+            Object.keys(counts).forEach(category => {
+                const countElement = document.getElementById(`count-${category}`);
+                if (countElement) {
+                    countElement.textContent = counts[category];
+                }
+            });
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
