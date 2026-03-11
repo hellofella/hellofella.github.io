@@ -36,7 +36,7 @@
             position: fixed;
             left: 0;
             top: 0;
-            width: 280px;
+            width: 320px;
             height: 100vh;
             background: var(--sidebar-bg);
             border-right: 1px solid var(--border-color);
@@ -53,12 +53,12 @@
 
         .site-title {
             font-family: 'Noto Serif SC', serif;
-            font-size: 42px;
+            font-size: 38px;
             font-weight: 700;
             color: var(--text-primary);
-            letter-spacing: 8px;
+            letter-spacing: 12px;
             margin-bottom: 8px;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .site-subtitle {
@@ -134,7 +134,7 @@
 
         /* 右侧主内容区 */
         .main-content {
-            margin-left: 280px;
+            margin-left: 320px;
             min-height: 100vh;
             background: var(--main-bg);
             padding: 60px 80px;
@@ -216,16 +216,17 @@
         /* 响应式设计 */
         @media (max-width: 1024px) {
             .sidebar {
-                width: 240px;
+                width: 280px;
             }
 
             .main-content {
-                margin-left: 240px;
+                margin-left: 280px;
                 padding: 40px 50px;
             }
 
             .site-title {
-                font-size: 36px;
+                font-size: 32px;
+                letter-spacing: 8px;
             }
         }
 
@@ -324,7 +325,6 @@
 
             <div class="nav-section">
                 <div class="nav-section-title">导航</div>
-                <a href="upload.html" class="nav-item">上传作品</a>
                 <a href="#" class="nav-item">关于我</a>
             </div>
         </nav>
